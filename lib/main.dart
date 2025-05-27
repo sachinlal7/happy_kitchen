@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:happy_kitchen_delivery/controllers/delivery_partner_controller.dart';
 import 'package:happy_kitchen_delivery/views/delivery_partner_screen.dart';
 import 'package:happy_kitchen_delivery/views/home_screen.dart';
 import 'package:happy_kitchen_delivery/views/restaurant_screen.dart';
 
 void main() {
+  // Initialize controllers
+  Get.put(DeliveryPartnerController());
+  
   runApp(HappyKitchenApp());
 }
 
