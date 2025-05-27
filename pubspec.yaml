@@ -1,0 +1,46 @@
+name: happy_kitchen_delivery
+description: Smart delivery assignment system for Happy Kitchen
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State Management
+  get: ^4.6.6
+
+  # Location Services
+  geolocator: ^10.1.0
+  permission_handler: ^11.0.1
+
+  # Maps
+  flutter_map: ^8.1.1
+  latlong2: ^0.9.1
+
+  # Real-time Communication
+  socket_io_client: ^2.0.3+1
+
+  # UI & Animation
+  lottie: ^2.7.0
+  google_fonts: ^6.1.0
+
+  # Utilities
+  intl: ^0.18.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/animations/
+    - assets/images/
