@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:happy_kitchen_delivery/models/delivery_partner_model.dart';
 import 'package:happy_kitchen_delivery/models/order_model.dart';
@@ -21,9 +22,12 @@ class DeliveryPartnerController extends GetxController {
   var todayEarnings = 0.0.obs;
   var todayOrders = 0.obs;
   var currentRating = 4.8.obs;
+  var searchRadius = 1.0.obs; // Default 1km radius
+  var currentLocation = Rxn<Position>();
 
   Timer? _orderTimeoutTimer;
   Timer? _realTimeUpdateTimer;
+  Timer? _locationUpdateTimer;
 
   @override
   void onInit() {
@@ -60,14 +64,12 @@ class DeliveryPartnerController extends GetxController {
       return distance <= radiusKm;
     }).toList();
 
-    // Sort by distance and rating
     nearbyPartners.sort((a, b) {
       double distanceA = locationController.calculateDistance(
           customerLat, customerLng, a.latitude, a.longitude);
       double distanceB = locationController.calculateDistance(
           customerLat, customerLng, b.latitude, b.longitude);
 
-      // Primary sort by distance, secondary by rating
       int distanceComparison = distanceA.compareTo(distanceB);
       if (distanceComparison != 0) return distanceComparison;
       return b.rating.compareTo(a.rating);
@@ -97,10 +99,8 @@ class DeliveryPartnerController extends GetxController {
       return;
     }
 
-    // Start timeout timer
     startOrderTimeout();
 
-    // Simulate real-time notification to partners
     Get.snackbar(
       '📢 Order Broadcast!',
       '${nearbyPartners.length} delivery partners notified nearby',
@@ -111,7 +111,6 @@ class DeliveryPartnerController extends GetxController {
       icon: Icon(Icons.notifications_active, color: Colors.white),
     );
 
-    // Show notification sound simulation
     _simulateNotificationSound();
   }
 
@@ -122,16 +121,12 @@ class DeliveryPartnerController extends GetxController {
       currentOrder.value!.status = 'accepted';
       currentOrder.value!.assignedPartnerId = partnerId;
 
-      // Cancel timeout timer
       cancelOrderTimeout();
 
-      // Clear available partners list to prevent other acceptances
       availablePartners.clear();
 
-      // Update partner availability
       _updatePartnerAvailability(partnerId, false);
 
-      // Update stats
       todayOrders.value++;
 
       DeliveryPartner? partner = getPartnerById(partnerId);
@@ -145,7 +140,6 @@ class DeliveryPartnerController extends GetxController {
         icon: Icon(Icons.check_circle, color: Colors.white),
       );
 
-      // Simulate pickup and delivery process
       _simulateDeliveryProcess();
     } else {
       Get.snackbar(
@@ -160,7 +154,6 @@ class DeliveryPartnerController extends GetxController {
 
   void declineOrder() {
     if (currentOrder.value != null && !hasActiveOrder.value) {
-      // Remove current partner from available list
       availablePartners
           .removeWhere((partner) => partner.id == selectedPartnerId.value);
 
@@ -172,7 +165,6 @@ class DeliveryPartnerController extends GetxController {
         duration: Duration(seconds: 3),
       );
 
-      // If no more partners available, clear the order
       if (availablePartners.isEmpty) {
         currentOrder.value = null;
         cancelOrderTimeout();
@@ -182,16 +174,13 @@ class DeliveryPartnerController extends GetxController {
 
   void completeOrder() {
     if (hasActiveOrder.value && currentOrder.value != null) {
-      // Calculate earnings (10% of order total)
       double orderEarnings = currentOrder.value!.totalAmount * 0.1;
       todayEarnings.value += orderEarnings;
 
-      // Update partner availability
       if (selectedPartnerId.value.isNotEmpty) {
         _updatePartnerAvailability(selectedPartnerId.value, true);
       }
 
-      // Reset order state
       hasActiveOrder.value = false;
       selectedPartnerId.value = '';
       currentOrder.value = null;
@@ -230,7 +219,6 @@ class DeliveryPartnerController extends GetxController {
     );
   }
 
-  // Private helper methods
   void _updatePartnerAvailability(String partnerId, bool isAvailable) {
     int index = deliveryPartners.indexWhere((p) => p.id == partnerId);
     if (index != -1) {
@@ -251,7 +239,6 @@ class DeliveryPartnerController extends GetxController {
           duration: Duration(seconds: 4),
         );
 
-        // Expand search radius
         _expandSearchRadius();
       }
     });
@@ -269,7 +256,6 @@ class DeliveryPartnerController extends GetxController {
         radiusKm: 2.0, // Expand to 2km
       );
 
-      // Add new partners not already notified
       for (DeliveryPartner partner in expandedPartners) {
         if (!availablePartners.any((p) => p.id == partner.id)) {
           availablePartners.add(partner);
@@ -291,7 +277,6 @@ class DeliveryPartnerController extends GetxController {
   void startRealTimeUpdates() {
     _realTimeUpdateTimer = Timer.periodic(Duration(seconds: 20), (timer) {
       if (!hasActiveOrder.value && Random().nextBool()) {
-        // Simulate random order notifications for demo
         _simulateRandomOrder();
       }
     });
@@ -305,12 +290,10 @@ class DeliveryPartnerController extends GetxController {
   }
 
   void _simulateNotificationSound() {
-    // In a real app, this would play a notification sound
     print('🔔 Notification sound played');
   }
 
   void _simulateDeliveryProcess() {
-    // Simulate delivery status updates
     Timer(Duration(seconds: 5), () {
       if (hasActiveOrder.value) {
         Get.snackbar(
@@ -336,7 +319,6 @@ class DeliveryPartnerController extends GetxController {
     });
   }
 
-  // Statistics methods
   Map<String, dynamic> getTodayStats() {
     return {
       'orders': todayOrders.value,
@@ -347,7 +329,6 @@ class DeliveryPartnerController extends GetxController {
   }
 
   List<Map<String, dynamic>> getWeeklyStats() {
-    // Mock weekly data for demo
     return [
       {'day': 'Mon', 'orders': 12, 'earnings': 450.0},
       {'day': 'Tue', 'orders': 15, 'earnings': 520.0},

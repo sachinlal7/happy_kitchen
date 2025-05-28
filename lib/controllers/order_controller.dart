@@ -38,7 +38,6 @@ class OrderController extends GetxController {
   }
 
   void loadInitialData() {
-    // Load some sample completed orders for demo
     _generateSampleHistoricalOrders();
   }
 
@@ -67,15 +66,12 @@ class OrderController extends GetxController {
         createdAt: DateTime.now(),
       );
 
-      // Add to orders list
       orders.insert(0, newOrder);
       activeOrders.insert(0, newOrder);
 
-      // Update statistics
       todayOrderCount.value++;
       todayRevenue.value += totalAmount;
 
-      // Notify delivery partners
       partnerController.notifyPartnersAboutOrder(newOrder);
 
       Get.snackbar(
@@ -88,7 +84,6 @@ class OrderController extends GetxController {
         icon: Icon(Icons.receipt_long, color: Colors.white),
       );
 
-      // Start monitoring this order
       _monitorOrderStatus(newOrder);
     } catch (e) {
       Get.snackbar(
@@ -121,7 +116,6 @@ class OrderController extends GetxController {
       orders[orderIndex].status = newStatus;
       orders.refresh();
 
-      // Move completed orders
       if (newStatus == 'delivered') {
         Order completedOrder = orders[orderIndex];
         activeOrders.removeWhere((order) => order.id == orderId);
@@ -225,7 +219,6 @@ class OrderController extends GetxController {
 
   void startOrderStatusUpdates() {
     _orderStatusTimer = Timer.periodic(Duration(seconds: 30), (timer) {
-      // Simulate real-time order status updates
       _updateActiveOrderStatuses();
     });
   }
@@ -265,10 +258,8 @@ class OrderController extends GetxController {
   }
 
   void _updateDeliveryStats(Order completedOrder) {
-    // Calculate delivery time (mock for demo)
     int deliveryTimeMinutes = 20 + Random().nextInt(20); // 20-40 minutes
 
-    // Update average delivery time
     double currentAvg = averageDeliveryTime.value;
     int completedCount = completedOrders.length;
     averageDeliveryTime.value =
@@ -285,7 +276,6 @@ class OrderController extends GetxController {
   }
 
   void _generateSampleHistoricalOrders() {
-    // Generate some historical orders for demo
     Random random = Random();
     DateTime now = DateTime.now();
 
@@ -313,14 +303,12 @@ class OrderController extends GetxController {
       completedOrders.add(historicalOrder);
     }
 
-    // Update stats based on historical data
     List<Order> todayHistorical = getTodayOrders();
     todayOrderCount.value += todayHistorical.length;
     todayRevenue.value +=
         todayHistorical.fold(0.0, (sum, order) => sum + order.totalAmount);
   }
 
-  // Restaurant management methods
   void updateRestaurantStatus(bool isOpen) {
     Get.snackbar(
       isOpen ? '🟢 Restaurant Open' : '🔴 Restaurant Closed',
@@ -341,7 +329,6 @@ class OrderController extends GetxController {
     );
   }
 
-  // Analytics methods
   Map<String, dynamic> getDashboardData() {
     return {
       'todayOrders': todayOrderCount.value,

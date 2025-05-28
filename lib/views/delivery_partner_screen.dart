@@ -58,7 +58,6 @@ class DeliveryPartnerScreen extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    // Header with notifications count
                     Container(
                       padding: EdgeInsets.all(20),
                       child: Row(
@@ -110,8 +109,6 @@ class DeliveryPartnerScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-
-                    // Content based on state
                     Expanded(
                       child: Obx(() => _buildMainContent()),
                     ),
@@ -403,7 +400,6 @@ class DeliveryPartnerScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Animated waiting indicator
           Container(
             width: 120,
             height: 120,

@@ -9,7 +9,7 @@ import 'package:happy_kitchen_delivery/views/restaurant_screen.dart';
 void main() {
   // Initialize controllers
   Get.put(DeliveryPartnerController());
-  
+
   runApp(HappyKitchenApp());
 }
 
@@ -18,6 +18,7 @@ class HappyKitchenApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Happy Kitchen Delivery',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.orange,
         fontFamily: GoogleFonts.poppins().fontFamily,

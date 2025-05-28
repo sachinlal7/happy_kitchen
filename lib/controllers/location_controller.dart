@@ -135,11 +135,9 @@ class LocationController extends GetxController {
   }
 
   int estimateDeliveryTime(double distanceInKm) {
-    // Estimate delivery time based on distance
-    // Assuming average speed of 20 km/h in city traffic
     double timeInHours = distanceInKm / 20;
     int timeInMinutes = (timeInHours * 60).round();
-    return timeInMinutes < 5 ? 5 : timeInMinutes; // Minimum 5 minutes
+    return timeInMinutes < 5 ? 5 : timeInMinutes;
   }
 
   bool isWithinRadius(

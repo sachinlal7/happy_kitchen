@@ -42,55 +42,47 @@ class DemoData {
   ];
 
   static List<List<OrderItem>> menuItems = [
-    // North Indian Combo
     [
       OrderItem(name: 'Butter Chicken', quantity: 2, price: 350),
       OrderItem(name: 'Garlic Naan', quantity: 4, price: 60),
       OrderItem(name: 'Basmati Rice', quantity: 1, price: 180),
       OrderItem(name: 'Raita', quantity: 1, price: 80),
     ],
-    // Biryani Special
     [
       OrderItem(name: 'Chicken Biryani', quantity: 1, price: 280),
       OrderItem(name: 'Mutton Biryani', quantity: 1, price: 350),
       OrderItem(name: 'Raita', quantity: 2, price: 80),
       OrderItem(name: 'Gulab Jamun', quantity: 4, price: 120),
     ],
-    // Vegetarian Delight
     [
       OrderItem(name: 'Paneer Tikka', quantity: 1, price: 320),
       OrderItem(name: 'Roti', quantity: 3, price: 45),
       OrderItem(name: 'Dal Makhani', quantity: 1, price: 220),
       OrderItem(name: 'Mixed Vegetable', quantity: 1, price: 180),
     ],
-    // South Indian Special
     [
       OrderItem(name: 'Masala Dosa', quantity: 2, price: 150),
       OrderItem(name: 'Idli Sambar', quantity: 1, price: 120),
       OrderItem(name: 'Filter Coffee', quantity: 2, price: 60),
       OrderItem(name: 'Coconut Chutney', quantity: 1, price: 40),
     ],
-    // Punjabi Combo
     [
       OrderItem(name: 'Chole Bhature', quantity: 1, price: 180),
       OrderItem(name: 'Aloo Paratha', quantity: 2, price: 120),
       OrderItem(name: 'Lassi', quantity: 1, price: 80),
       OrderItem(name: 'Pickle', quantity: 1, price: 30),
     ],
-    // Continental Mix
     [
       OrderItem(name: 'Chicken Pizza', quantity: 1, price: 450),
       OrderItem(name: 'Garlic Bread', quantity: 1, price: 120),
       OrderItem(name: 'Cold Drink', quantity: 2, price: 60),
     ],
-    // Chinese Combo
     [
       OrderItem(name: 'Chicken Fried Rice', quantity: 1, price: 220),
       OrderItem(name: 'Chilli Chicken', quantity: 1, price: 280),
       OrderItem(name: 'Manchow Soup', quantity: 2, price: 120),
       OrderItem(name: 'Spring Roll', quantity: 4, price: 160),
     ],
-    // Snacks Combo
     [
       OrderItem(name: 'Samosa', quantity: 6, price: 90),
       OrderItem(name: 'Pakora', quantity: 1, price: 120),
@@ -133,7 +125,6 @@ class DemoData {
     String customerName = customerNames[random.nextInt(customerNames.length)];
     String address = addresses[random.nextInt(addresses.length)];
 
-    // Generate random coordinates around Delhi
     double baseLat = 28.6139;
     double baseLng = 77.2090;
     double lat = baseLat + (random.nextDouble() - 0.5) * 0.05;
@@ -159,9 +150,8 @@ class DemoData {
     List<DeliveryPartner> partners = [];
 
     for (int i = 0; i < 15; i++) {
-      // Generate random coordinates within 3km radius of Delhi center
       double angle = random.nextDouble() * 2 * pi;
-      double radius = random.nextDouble() * 0.03; // ~3km in degrees
+      double radius = random.nextDouble() * 0.03;
 
       double baseLat = 28.6139;
       double baseLng = 77.2090;
@@ -174,7 +164,7 @@ class DemoData {
         name: partnerNames[i % partnerNames.length],
         latitude: lat,
         longitude: lng,
-        isAvailable: i < 8 || random.nextBool(), // Ensure some are available
+        isAvailable: i < 8 || random.nextBool(),
         rating: 3.0 + random.nextDouble() * 2.0,
         phoneNumber: '+91-${9000000000 + random.nextInt(999999999)}',
         vehicleType: vehicleTypes[random.nextInt(vehicleTypes.length)],
@@ -246,7 +236,6 @@ class DemoData {
     Random random = Random();
     List<Map<String, dynamic>> chartData = [];
 
-    // Generate last 7 days data
     DateTime now = DateTime.now();
     List<String> days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
@@ -268,28 +257,18 @@ class DemoData {
     Random random = Random();
     List<Map<String, dynamic>> hourlyData = [];
 
-    // Peak hours: 12-2 PM and 7-9 PM
     for (int hour = 0; hour < 24; hour++) {
       int baseOrders = 2;
 
-      // Lunch peak
       if (hour >= 11 && hour <= 14) {
         baseOrders = 8 + random.nextInt(6);
-      }
-      // Dinner peak
-      else if (hour >= 18 && hour <= 21) {
+      } else if (hour >= 18 && hour <= 21) {
         baseOrders = 10 + random.nextInt(8);
-      }
-      // Evening snacks
-      else if (hour >= 15 && hour <= 17) {
+      } else if (hour >= 15 && hour <= 17) {
         baseOrders = 4 + random.nextInt(4);
-      }
-      // Late night
-      else if (hour >= 22 || hour <= 2) {
+      } else if (hour >= 22 || hour <= 2) {
         baseOrders = 2 + random.nextInt(3);
-      }
-      // Morning
-      else if (hour >= 8 && hour <= 10) {
+      } else if (hour >= 8 && hour <= 10) {
         baseOrders = 3 + random.nextInt(3);
       }
 
@@ -317,7 +296,6 @@ class DemoData {
   }
 
   static Map<String, List<double>> getDeliveryHeatmapData() {
-    // Generate heatmap data for delivery zones
     Random random = Random();
     Map<String, List<double>> heatmapData = {};
 
