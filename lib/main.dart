@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:happy_kitchen_delivery/controllers/delivery_partner_controller.dart';
-import 'package:happy_kitchen_delivery/views/delivery_partner_screen.dart';
-import 'package:happy_kitchen_delivery/views/home_screen.dart';
-import 'package:happy_kitchen_delivery/views/restaurant_screen.dart';
+import 'package:kounter_rapid_delivery/controllers/delivery_partner_controller.dart';
+import 'package:kounter_rapid_delivery/views/delivery_partner_screen.dart';
+import 'package:kounter_rapid_delivery/views/home_screen.dart';
+import 'package:kounter_rapid_delivery/views/restaurant_screen.dart';
 
 void main() {
   // Initialize controllers
@@ -55,28 +55,17 @@ class SplashScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: 120,
-                height: 120,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 20,
-                      offset: Offset(0, 10),
-                    ),
-                  ],
-                ),
-                child: Icon(
-                  Icons.restaurant_menu,
-                  size: 60,
-                  color: Colors.orange[600],
-                ),
-              ),
+                  width: 120,
+                  height: 120,
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: Image.asset("assets/images/kounter_logo.png")),
               SizedBox(height: 30),
               Text(
-                'Happy Kitchen',
+                textAlign: TextAlign.center,
+                'Kounter \nRapid Delivery',
                 style: GoogleFonts.poppins(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,

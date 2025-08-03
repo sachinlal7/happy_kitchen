@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kounter_rapid_delivery/utils/widgets/footer.dart';
 
 import '../controllers/delivery_partner_controller.dart';
 import '../controllers/location_controller.dart';
@@ -14,6 +15,7 @@ class DeliveryPartnerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: AlmondsFooter(),
       appBar: AppBar(
         title: Text(
           'Delivery Partner',

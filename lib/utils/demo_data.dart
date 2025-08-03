@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:happy_kitchen_delivery/models/delivery_partner_model.dart';
-import 'package:happy_kitchen_delivery/models/order_model.dart';
+import '../models/delivery_partner_model.dart';
+import '../models/order_model.dart';
 
 class DemoData {
   static List<String> customerNames = [
@@ -20,7 +20,7 @@ class DemoData {
     'Manish Agarwal',
     'Pooja Bajaj',
     'Suresh Chand',
-    'Ritu Saxena'
+    'Ritu Saxena',
   ];
 
   static List<String> addresses = [
@@ -38,7 +38,7 @@ class DemoData {
     'Nehru Place, New Delhi',
     'Rajouri Garden, West Delhi',
     'Pitampura, North Delhi',
-    'Mayur Vihar, East Delhi'
+    'Mayur Vihar, East Delhi',
   ];
 
   static List<List<OrderItem>> menuItems = [
@@ -107,7 +107,7 @@ class DemoData {
     'Ajay Sharma',
     'Kavita Singh',
     'Dinesh Yadav',
-    'Suman Gupta'
+    'Suman Gupta',
   ];
 
   static List<String> vehicleTypes = [
@@ -115,7 +115,7 @@ class DemoData {
     'Scooter',
     'Bicycle',
     'E-Bike',
-    'Car'
+    'Car',
   ];
 
   static Order generateRandomOrder() {
@@ -139,8 +139,10 @@ class DemoData {
       customerLatitude: lat,
       customerLongitude: lng,
       items: items,
-      totalAmount:
-          items.fold(0, (sum, item) => sum + (item.price * item.quantity)),
+      totalAmount: items.fold(
+        0,
+        (sum, item) => sum + (item.price * item.quantity),
+      ),
       createdAt: DateTime.now(),
     );
   }
@@ -159,16 +161,18 @@ class DemoData {
       double lat = baseLat + radius * cos(angle);
       double lng = baseLng + radius * sin(angle);
 
-      partners.add(DeliveryPartner(
-        id: 'partner_${i + 1}',
-        name: partnerNames[i % partnerNames.length],
-        latitude: lat,
-        longitude: lng,
-        isAvailable: i < 8 || random.nextBool(),
-        rating: 3.0 + random.nextDouble() * 2.0,
-        phoneNumber: '+91-${9000000000 + random.nextInt(999999999)}',
-        vehicleType: vehicleTypes[random.nextInt(vehicleTypes.length)],
-      ));
+      partners.add(
+        DeliveryPartner(
+          id: 'partner_${i + 1}',
+          name: partnerNames[i % partnerNames.length],
+          latitude: lat,
+          longitude: lng,
+          isAvailable: i < 8 || random.nextBool(),
+          rating: 3.0 + random.nextDouble() * 2.0,
+          phoneNumber: '+91-${9000000000 + random.nextInt(999999999)}',
+          vehicleType: vehicleTypes[random.nextInt(vehicleTypes.length)],
+        ),
+      );
     }
 
     return partners;
@@ -180,11 +184,13 @@ class DemoData {
     DateTime now = DateTime.now();
 
     for (int i = 0; i < count; i++) {
-      DateTime orderTime = now.subtract(Duration(
-        days: random.nextInt(30), // Last 30 days
-        hours: random.nextInt(24),
-        minutes: random.nextInt(60),
-      ));
+      DateTime orderTime = now.subtract(
+        Duration(
+          days: random.nextInt(30), // Last 30 days
+          hours: random.nextInt(24),
+          minutes: random.nextInt(60),
+        ),
+      );
 
       String orderId = 'HK${orderTime.millisecondsSinceEpoch}';
       String customerName = customerNames[random.nextInt(customerNames.length)];
@@ -200,20 +206,25 @@ class DemoData {
       List<String> statuses = ['delivered', 'cancelled'];
       String status = statuses[random.nextInt(statuses.length)];
 
-      historicalOrders.add(Order(
-        id: orderId,
-        customerName: customerName,
-        customerAddress: address,
-        customerLatitude: lat,
-        customerLongitude: lng,
-        items: items,
-        totalAmount:
-            items.fold(0, (sum, item) => sum + (item.price * item.quantity)),
-        createdAt: orderTime,
-        status: status,
-        assignedPartnerId:
-            status == 'delivered' ? 'partner_${random.nextInt(15) + 1}' : null,
-      ));
+      historicalOrders.add(
+        Order(
+          id: orderId,
+          customerName: customerName,
+          customerAddress: address,
+          customerLatitude: lat,
+          customerLongitude: lng,
+          items: items,
+          totalAmount: items.fold(
+            0,
+            (sum, item) => sum + (item.price * item.quantity),
+          ),
+          createdAt: orderTime,
+          status: status,
+          assignedPartnerId: status == 'delivered'
+              ? 'partner_${random.nextInt(15) + 1}'
+              : null,
+        ),
+      );
     }
 
     return historicalOrders;
@@ -306,7 +317,7 @@ class DemoData {
       'East Delhi',
       'West Delhi',
       'New Delhi',
-      'South West Delhi'
+      'South West Delhi',
     ];
 
     for (String zone in zones) {

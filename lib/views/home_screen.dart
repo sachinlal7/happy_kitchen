@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:happy_kitchen_delivery/views/delivery_partner_screen.dart';
-import 'package:happy_kitchen_delivery/views/restaurant_screen.dart';
+import 'package:kounter_rapid_delivery/utils/widgets/footer.dart';
+import 'package:kounter_rapid_delivery/views/restaurant_screen.dart';
+
+import 'delivery_partner_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: AlmondsFooter(),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -27,31 +30,20 @@ class HomeScreen extends StatelessWidget {
                     Row(
                       children: [
                         Container(
-                          width: 60,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black12,
-                                blurRadius: 10,
-                                offset: Offset(0, 5),
-                              ),
-                            ],
-                          ),
-                          child: Icon(
-                            Icons.restaurant_menu,
-                            color: Colors.orange[600],
-                            size: 30,
-                          ),
-                        ),
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child:
+                                Image.asset("assets/images/kounter_logo.png")),
                         SizedBox(width: 15),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Happy Kitchen',
+                              'Kounter Rapid Delivery',
                               style: GoogleFonts.poppins(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
@@ -140,13 +132,21 @@ class HomeScreen extends StatelessWidget {
                             Row(
                               children: [
                                 _buildFeatureItem(
-                                    Icons.location_on, '1km Radius\nMatching'),
-                                _buildFeatureItem(Icons.notifications_active,
-                                    'Real-time\nNotifications'),
+                                  Icons.location_on,
+                                  '1km Radius\nMatching',
+                                ),
                                 _buildFeatureItem(
-                                    Icons.timer, 'Smart\nAssignment'),
+                                  Icons.notifications_active,
+                                  'Real-time\nNotifications',
+                                ),
                                 _buildFeatureItem(
-                                    Icons.track_changes, 'Live\nTracking'),
+                                  Icons.timer,
+                                  'Smart\nAssignment',
+                                ),
+                                _buildFeatureItem(
+                                  Icons.track_changes,
+                                  'Live\nTracking',
+                                ),
                               ],
                             ),
                           ],
@@ -204,11 +204,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Icon(
-                icon,
-                color: Colors.white,
-                size: 30,
-              ),
+              child: Icon(icon, color: Colors.white, size: 30),
             ),
             SizedBox(width: 20),
             Expanded(
@@ -245,10 +241,7 @@ class HomeScreen extends StatelessWidget {
             ),
             Container(
               padding: EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               child: Icon(
                 Icons.arrow_forward_ios,
                 color: Colors.white,
@@ -272,20 +265,13 @@ class HomeScreen extends StatelessWidget {
               color: Colors.orange[100],
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Icon(
-              icon,
-              color: Colors.orange[600],
-              size: 20,
-            ),
+            child: Icon(icon, color: Colors.orange[600], size: 20),
           ),
           SizedBox(height: 8),
           Text(
             text,
             textAlign: TextAlign.center,
-            style: GoogleFonts.poppins(
-              fontSize: 10,
-              color: Colors.grey[600],
-            ),
+            style: GoogleFonts.poppins(fontSize: 10, color: Colors.grey[600]),
           ),
         ],
       ),

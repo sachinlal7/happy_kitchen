@@ -3,8 +3,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:happy_kitchen_delivery/models/order_model.dart';
-import 'package:happy_kitchen_delivery/utils/demo_data.dart';
+import 'package:kounter_rapid_delivery/models/order_model.dart';
+import 'package:kounter_rapid_delivery/utils/demo_data.dart';
 
 import 'delivery_partner_controller.dart';
 import 'location_controller.dart';
